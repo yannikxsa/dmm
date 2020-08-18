@@ -1,0 +1,20 @@
+{
+  "calcviews::SalesOrder": {
+    "target": {
+      "object": "SalesOrder",
+      "schema": "DMM260"
+    }
+  },
+  "calcviews::BusinessPartner": {
+    "target": {
+      "object": "BusinessPartner",
+      "schema": "DMM260"
+    }
+  },
+  "calcviews::SalesOrderItem": {
+    "target": {
+      "object": "SalesOrderItem",
+      "schema": "DMM260"
+    }
+  }
+}

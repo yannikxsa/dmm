@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="calcviews::DMM_CALC_VIEW" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="DMM_CALC_VIEW"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="calcviews::SalesOrder">
+    <resourceUri>calcviews::SalesOrder</resourceUri>
+  </DataSource>
+  <DataSource id="calcviews::SalesOrderItem">
+    <resourceUri>calcviews::SalesOrderItem</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="SalesOrderId"/>
+      <viewAttribute id="Currency"/>
+      <viewAttribute id="GrossAmount"/>
+      <viewAttribute id="NetAmount"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="calcviews::SalesOrder"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="SalesOrderId"/>
+      <viewAttribute id="SalesOrderItem"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="calcviews::SalesOrderItem"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:NonEquiJoinView" id="NonEquiJoin_1" cardinality="C1_1" joinType="rightOuter">
+    <viewAttributes>
+      <viewAttribute id="SalesOrderId"/>
+      <viewAttribute id="Currency"/>
+      <viewAttribute id="GrossAmount"/>
+      <viewAttribute id="NetAmount"/>
+      <viewAttribute id="SalesOrderId_1"/>
+      <viewAttribute id="SalesOrderItem"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderId" source="SalesOrderId"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="Currency" source="Currency"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GrossAmount" source="GrossAmount"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NetAmount" source="NetAmount"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderId_1" source="SalesOrderId"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderItem" source="SalesOrderItem"/>
+    </input>
+    <joinAttribute leftColumn="SalesOrderId" rightColumn="SalesOrderId" operator="NE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="NonEquiJoin_1">
+  <attributes>
+    <attribute id="SalesOrderId" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Order ID"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="SalesOrderId"/>
+    </attribute>
+    <attribute id="Currency" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency Code"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="Currency"/>
+    </attribute>
+    <attribute id="GrossAmount" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Total Gross Amount"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="GrossAmount"/>
+    </attribute>
+    <attribute id="NetAmount" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Total Net Amount"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="NetAmount"/>
+    </attribute>
+    <attribute id="SalesOrderId_1" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Order ID"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="SalesOrderId_1"/>
+    </attribute>
+    <attribute id="SalesOrderItem" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Order Item"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="SalesOrderItem"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="273" y="345"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-184" y="335"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="NonEquiJoin_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="113" y="221"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="NonEquiJoin_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="153"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="NonEquiJoin_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
