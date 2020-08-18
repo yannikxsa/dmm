@@ -1,3 +1,32 @@
 ID: Test_App
 _schema-version: '2.1'
 version: 0.0.1
+
+modules:
+ - name: DMM_MOD
+   type: hdb
+   path: DMM_MOD
+   requires:
+    - name: hdi_DMM_MOD
+
+
+ - name: DMM_MOD2
+   type: hdb
+   path: DMM_MOD2
+   requires:
+    - name: hdi_DMM_MOD2
+
+resources:
+ - name: hdi_DMM_MOD
+   parameters:
+      config:
+         schema: DMM_MOD
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+
+ - name: hdi_DMM_MOD2
+   properties:
+      hdi-container-name_2: ${service-name}
+   type: com.sap.xs.hdi-container
+
